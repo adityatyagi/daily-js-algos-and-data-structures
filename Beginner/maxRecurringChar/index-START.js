@@ -33,7 +33,7 @@ function maxRecurringChar(text) {
     //     }
     // }
 
-    // METHOD 2
+    // METHOD 2 - 30% slower than Method 1
     // creating arrays out of charMap
     let distinctElements = Object.keys(charMap); // returns array of all the keys
     let countOfDistinctElements = Object.values(charMap); // returns array of all the values of the keys
