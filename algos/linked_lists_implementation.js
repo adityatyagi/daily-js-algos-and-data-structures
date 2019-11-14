@@ -123,15 +123,36 @@ class LinkedList {
         return nodeToDelete.value;
     }
 
-    serialize() {
-        const ans = [];
-        let current = this.head;
-        if (!current) return ans;
-        while (current) {
-            ans.push(current.value);
-            current = current.next;
+    printLinkedList() {
+        let linkedList = [];
+        let head = this.head;
+        if (!head) {
+            return linkedList;
         }
-        return ans;
+
+        while (head) {
+            linkedList.push(head.value);
+            head = head.next;
+        }
+
+        return linkedList;
+    }
+
+    // get value of at a particular index
+    get(index) {
+        let indexToFind = index;
+        let current = this.head;
+        let i = 0;
+        let nodeToFind = null;
+        while (current) {
+            if (indexToFind === i) {
+                nodeToFind = current;
+            }
+            current = current.next;
+            i++;
+        }
+        if (!nodeToFind) return null;
+        return nodeToFind.value;
     }
 }
 
@@ -140,8 +161,9 @@ sampleLinkedList.push(3);
 sampleLinkedList.push(44);
 sampleLinkedList.push(23);
 sampleLinkedList.push(11);
-console.log(sampleLinkedList.serialize());
+console.log(sampleLinkedList.printLinkedList());
 sampleLinkedList.pop();
-console.log(sampleLinkedList.serialize());
+console.log(sampleLinkedList.printLinkedList());
 sampleLinkedList.delete(1);
-console.log(sampleLinkedList.serialize());
+console.log(sampleLinkedList.printLinkedList());
+console.log(sampleLinkedList.get(1));
