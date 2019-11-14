@@ -51,9 +51,7 @@ class LinkedList {
 
         // 3. If the list is not empty and has more than 1 element
         // 3.1 Find the second to last element (penultimate node)
-        let value = null;
         let current = this.head;
-        let i = 0;
         let secondLastElement = null;
 
         while (current) {
@@ -62,7 +60,6 @@ class LinkedList {
                 secondLastElement = current; // return second last node
             }
             current = current.next;
-            i++;
         }
 
         const lastElement = secondLastElement.next.value;
@@ -80,6 +77,7 @@ class LinkedList {
 
     delete(index) {
 
+        // if the user is asking to delete head
         if (index === 0) {
             head = this.head;
             if (head) {
