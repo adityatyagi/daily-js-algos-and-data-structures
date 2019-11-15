@@ -154,6 +154,7 @@ class LinkedList {
     }
 }
 
+
 let sampleLinkedList = new LinkedList();
 sampleLinkedList.push(3);
 sampleLinkedList.push(44);
