@@ -8,152 +8,129 @@
 */
 
 // a particular node of a linked list
+
 class Node {
-    constructor(value) {
-        this.value = value;
-        this.next = null;
-    }
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
 }
 
-// we will be keeping track of HEAD and TAIL
 class LinkedList {
-    constructor() {
-        this.tail = this.head = null; // initially the list is empty
-        this.length = 0;
+  constructor() {
+    this.tail = this.head = null;
+    this.length = 0;
+  }
+
+  // push an element at the last of the array
+  push(value) {
+    let newNode = new Node(value);
+    this.length++;
+
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      this.tail.next = newNode;
+    }
+    this.tail = newNode;
+  }
+
+  // remove the last node
+  pop() {
+    let head = this.head;
+
+    if (!head) return null;
+
+    if (head === this.tail) {
+      let node = head;
+      this.tail = this.head = null;
+      this.length--;
+      return node.value;
     }
 
-    push(value) {
-        const node = new Node(value);
-        this.length++;
-
-        if (!this.head) {
-            // 1. If the list is empty
-            this.head = node;
-        } else {
-            // 2. If the list is not empty
-            this.tail.next = node;
-        }
-
-        // update the TAIL pointer now pointing to the last element
-        this.tail = node;
+    // find the secondlastelement
+    let secondlastelement = null;
+    let current = this.head;
+    while (current) {
+      if (current.next === this.tail) {
+        secondlastelement = current;
+      }
+      current = current.next;
     }
+    let lastElement = secondlastelement.next;
+    if (!lastElement) return null;
+    secondlastelement.next = null;
+    this.tail = secondlastelement;
+    this.length--;
+    return lastElement.value;
+  }
 
-    pop() {
-        // 1. If the list is empty
-        if (!this.head) return null;
-
-        // 2. If the list is not empty but has only 1 node i.e. HEAD = TAIL
-        if (this.head === this.tail) {
-            const node = this.head;
-            this.tail = this.head = null;
-            return node.value;
-        }
-
-        // 3. If the list is not empty and has more than 1 element
-        // 3.1 Find the second to last element (penultimate node)
-        let current = this.head;
-        let secondLastElement = null;
-
-        while (current) {
-            // check if the current node is the second last node, as its next will point to last node i.e. tail
-            if (current.next === this.tail) {
-                secondLastElement = current; // return second last node
-            }
-            current = current.next;
-        }
-
-        const lastElement = secondLastElement.next.value;
-
-        // remove the pointer of the second last element
-        secondLastElement.next = null;
-
-        // update the tail
-        this.tail = secondLastElement;
-
+  delete(index) {
+    if (index === 0) {
+      let head = this.head;
+      if (!head) {
+        return null;
+      } else {
+        let node = head;
+        this.head = head.next;
         this.length--;
-
-        return lastElement;
+        return node.value;
+      }
     }
 
-    delete(index) {
+    let indexOfNodePriorToNodeToDelete = index - 1;
+    let nodePriorToNodeToDelete = null;
+    let current = this.head;
+    let i = 0;
 
-        // if the user is asking to delete head
-        if (index === 0) {
-            head = this.head;
-            if (head) {
-                // if the list is not empty
-                this.head = head.next
-            } else {
-                // if the list is empty
-                this.head = null;
-            }
-            this.length--;
-            return head.value;
-        }
-
-        // find the node 1 prior to the node to delete
-        let indexOfSecondLastNode = index - 1; // beacause we want 1 node prior to asked index
-        let current = this.head;
-        let i = 0;
-        let nodePriorToNodeToDelete = null;
-        while (current) {
-            if (indexOfSecondLastNode === i) {
-                nodePriorToNodeToDelete = current;
-            }
-            current = current.next;
-            i++;
-        }
-
-        const nodeToDelete = nodePriorToNodeToDelete.next;
-
-        // if the node being asked to delete does not exisit
-        if (!nodeToDelete) return null;
-
-        // update the pointer of nodePriorToNodeToDelete to point to the node next to the node to delete
-        nodePriorToNodeToDelete.next = nodeToDelete.next;
-
-        // check if the node being pointed by nodePriorToNodeToDelete is the last node, update tail
-        if (!nodePriorToNodeToDelete.next.next) {
-            this.tail = nodePriorToNodeToDelete.next;
-        }
-
-        this.length--;
-        return nodeToDelete.value;
+    while (current) {
+      if (indexOfNodePriorToNodeToDelete === i) {
+        nodePriorToNodeToDelete = current;
+      }
+      current = current.next;
+      i++;
     }
 
-    printLinkedList() {
-        let linkedList = [];
-        let head = this.head;
-        if (!head) {
-            return linkedList;
-        }
+    let nodeToDelete = nodePriorToNodeToDelete.next;
 
-        while (head) {
-            linkedList.push(head.value);
-            head = head.next;
-        }
+    if (!nodeToDelete) return null;
 
-        return linkedList;
+    nodePriorToNodeToDelete.next = nodeToDelete.next;
+
+    if (!nodePriorToNodeToDelete.next.next) {
+      this.tail = nodePriorToNodeToDelete.next;
+    }
+    this.length--;
+    return nodeToDelete.value;
+  }
+
+  get(index) {
+    let node = null;
+    let current = this.head;
+    let i = 0;
+    while (current) {
+      if (i === index) {
+        node = current;
+      }
+      current = current.next;
+      i++;
     }
 
-    // get value of at a particular index
-    get(index) {
-        let indexToFind = index;
-        let current = this.head;
-        let i = 0;
-        let nodeToFind = null;
-        while (current) {
-            if (indexToFind === i) {
-                nodeToFind = current;
-            }
-            current = current.next;
-            i++;
-        }
-        if (!nodeToFind) return null;
-        return nodeToFind.value;
+    if (!node) return null;
+    return node.value;
+  }
+
+  printLinkedList() {
+    let linkedList = [];
+    if (!this.head) return linkedList;
+    let current = this.head;
+    while (current) {
+      linkedList.push(current.value);
+      current = current.next;
     }
+    return linkedList;
+  }
 }
-
 
 let sampleLinkedList = new LinkedList();
 sampleLinkedList.push(3);
@@ -162,7 +139,7 @@ sampleLinkedList.push(23);
 sampleLinkedList.push(11);
 console.log(sampleLinkedList.printLinkedList());
 sampleLinkedList.pop();
-console.log(sampleLinkedList.printLinkedList());
+// console.log(sampleLinkedList.printLinkedList());
 sampleLinkedList.delete(1);
 console.log(sampleLinkedList.printLinkedList());
 console.log(sampleLinkedList.get(1));
