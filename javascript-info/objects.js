@@ -95,3 +95,38 @@ Object.isFrozen(person);
 Object.isSealed(person2);
 Object.isExtensible(person);
 
+// ----------------------------------------------------------------------
+// JS Objects - property getters and setters
+let mobile = {
+  company: 'OnePlus',
+  model: '8',
+  get mobileName() {
+    return `${this.company} ${this.model}`;
+  },
+  set mobileName(value) {
+    [this.company, this.model] = value.split(' ');
+  }
+}
+mobile.mobileName = 'OnePlus 7'
+console.log(mobile.mobileName);
+
+// Accessor descriptors
+// get, set, configurable, enumerable
+Object.defineProperty(mobile, 'color', {
+  get() {
+    return this._color;
+  },
+  set(value) {
+    if(value.length < 2) {
+      alert('length of color should be greater than 2');
+      return;
+    }
+    this._color = 'Color of mobile is ' + value;
+  },
+  enumerable: true
+});
+mobile.color = 're';
+console.log(mobile);
+
+
+
