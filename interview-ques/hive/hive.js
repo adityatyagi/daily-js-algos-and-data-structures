@@ -1,49 +1,75 @@
-window.MaxRetries = 4;
-var n = 0; // no. of retrys
+window.MaxRetries = 4; // max no. of retrys
+let n = 0; // no. of retrys
 window.initialTimer = (n)^1/n;
-var numberOfRetry = document.getElementById('no-of-retry');
-var button = document.getElementById('btn');
-var helpText= document.getElementById('help-text');
-document.getElementById('help-text').style.display = 'none';
+let numberOfRetry = document.getElementById('no-of-retry');
+let button = document.getElementById('btn');
+let helpText= document.getElementById('help-text');
 
+// hide the countdown help text message initially
+helpText.style.display = 'none';
+
+/**
+ * @description Returns a boolean value randomly
+ * @returns {boolean} true/false randomly
+ */
 function pseudoApiStub() {
-	// return Math.random() < 0.5;
-	return false;
+	return Math.random() < 0.5;
 }
 
-function setRetrys(n) {
-	n = window.initialTimer^n;
+/**
+ * @description Set retry count
+ * @param {number} retryCount Most latest retry number
+ */
+function setRetrys(retryCount) {
+	n = window.initialTimer^retryCount;
 }
 
-function countdown(n) {
-  let seconds = n;
-  var countdown = setInterval(function() {
+/**
+ * @description Retry countdown
+ * @param {number} countdownFrom Seconds from where we need to start the countdown
+ */
+function countdown(countdownFrom) {
+  let seconds = countdownFrom;
+
+  let countdown = setInterval(function() {
     helpText.style.display = 'block';
     seconds--;
-    numberOfRetry.innerText = seconds;
+
+    // to not print -1 in the countdown
+    if(seconds >= 0) {
+      numberOfRetry.innerText = seconds;
+    }
     if (seconds <= 0) clearInterval(countdown);
   }, 1000);
 }
 
+/**
+ * @description Resets the button's state depending on the flags
+ * @param {boolean} disabled Flag to toggle between enable/disable button
+ * @param {*} timer The timer to clear post finishing or hitting max retrys
+ * @param {string} buttonText Text for the button present
+ */
+function resetButton(disabled, timer, buttonText) {
+  n = 0;
+  button.innerText = buttonText;
+  button.disabled = disabled;
+  helpText.style.display = 'none';
+  clearTimeout(timer);
+}
+
+/**
+ * @description Starts with the first try and eventually runs atmost maximum number of retrys
+ */
 function startTry() {
-  console.count()
 	let shouldFinish = pseudoApiStub();
   let timer;
 
   // base case
   if(n > window.MaxRetries && !shouldFinish) {
-    n = 0;
-  	button.innerText = 'Restart';
-    button.disabled = false;
-    helpText.style.display = 'none';
-    clearTimeout(timer);
+    resetButton(false, timer, 'Restart');
   } else {
-  		if(shouldFinish) {
-        n = 0;
-        button.innerText = 'Finish';
-        button.disabled = true;
-        helpText.style.display = 'none';
-        clearTimeout(timer);
+  		if (shouldFinish) {
+        resetButton(true, timer, 'Finish');
     	} else {
         button.innerText = 'Loading';
         button.disabled = true;
@@ -51,10 +77,9 @@ function startTry() {
         // use setTimeout with incrementing numberOfRetry
         countdown(n);
         timer = setTimeout(() => {
-          console.log('n in timer', n)
           n++;
           startTry();
-        }, n*1000);
+        }, n * 1000);
     	}
   }
 }
