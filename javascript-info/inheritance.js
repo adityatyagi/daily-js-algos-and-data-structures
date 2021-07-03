@@ -67,7 +67,38 @@ class City extends Country {
    */
 
    // Constructors in inheriting classes must call super(...), and (!) do it before using this.
+   constructor(name, city) {
+     super(name);
+     console.log(city)
+     this.city = city;
+   }
+   showCity() {
+     console.log(`${this.city} is in the country ${this.name}`);
+   }
 }
-let city1 = new City('India');
-city1.printCountry()
+let city1 = new City('India', 'New Delhi');
+city1.printCountry();
+city1.showCity();
+
+// static methods and static properties on the class
+// static methods are CLASS METHODS and static properties are CLASS PROPERTIES
+class Bike {
+  static bikeModel = 'Honda';
+  static printBike() {
+    console.log('Printing Bike');
+  }
+  constructor(name) {
+    this.name = name;
+  }
+}
+class Suzuki extends Bike {
+  constructor(name){
+    super(name);
+  }
+}
+let suz = new Suzuki('R15');
+// suz.printBike(); // will give an error, as the method is a CLASS METHOD and not a OBJECT METHOD
+Suzuki.printBike();
+console.log(Suzuki.bikeModel);
+
 
