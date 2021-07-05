@@ -134,4 +134,36 @@ setTimeout(() => lappy.sayLaptopName(), 1000); // solution 1: wrap the function
 setTimeout(lappy.sayLaptopName2, 2000); // solution 2: arrow function within the class and here we have to give REFERENCE and not call the function
 
 
+// extending the inbuilt classes
+class PowerArray extends Array {
+  isEmpty() {
+    // because the parent class Array already has a length property
+    return this.length;
+  }
+}
+let a = new PowerArray(1,2,3,4);
+console.log(a.length);
+console.log(a.isEmpty());
+
+// calling diff. inbuilt array methods on the object of the PowerArray returns PowerArray only
+let b = a.map(item => a*2);
+console.log(b.constructor === PowerArray);
+
+// but if we want that the inbuilt functions return Array only, then we have to change the
+// property Symbol.species in the PowerArray
+class PowerArray2 extends Array {
+  isEmpty() {
+    return this.length;
+  }
+  static get [Symbol.species]() {
+    return Array;
+  }
+}
+let a2 = new PowerArray(1,2,3,4);
+let b2 = a2.map(item => item * 2);
+console.log(b2.constructor === PowerArray2);
+
+// there is no static inheritance in built in objects
+
+
 

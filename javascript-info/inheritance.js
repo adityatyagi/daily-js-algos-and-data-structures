@@ -99,6 +99,7 @@ class Suzuki extends Bike {
 let suz = new Suzuki('R15');
 // suz.printBike(); // will give an error, as the method is a CLASS METHOD and not a OBJECT METHOD
 Suzuki.printBike();
+// suz.bikeModel; // will give an error as the property is a CLASS PROPERTY and not a OBJECT PROPERTY
 console.log(Suzuki.bikeModel);
 
 
