@@ -32,7 +32,36 @@ function validAnagram(str1, str2) {
     return true;
 }
 
-console.log(validAnagram('qwerty', 'qwetray'));
+// METHOD 2
+function validAnagram2(str1, str2) {
+    if (str1.length !== str2.length) {
+        return false;
+    }
+
+    let lookup = {};
+
+    // loop over str1 characters
+    for (let i = 0; i < str1.length; i++) {
+        const char = str1[i];
+
+        // create the lookup object with the char of the str1 as keys
+        lookup[char] ? (lookup[char] += 1) : (lookup[char] = 1);
+    }
+
+    // loop over str1
+    for (let i = 0; i < str2.length; i++) {
+        const char = str2[i];
+
+        if (!lookup[char]) {
+            return false;
+        }
+
+        lookup[char] -= 1;
+    }
+    return true;
+}
+
+console.log(validAnagram2('qwerty', 'qwetray'));
 console.log(validAnagram('aaz', 'zza')); // false
 console.log(validAnagram('', '')); // true
 console.log(validAnagram('anagram', 'nagaram')); // true
