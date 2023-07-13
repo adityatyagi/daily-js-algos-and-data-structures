@@ -1,7 +1,7 @@
 // give two strings, write a function to determine if the second string is an anagram of the first
 // Time Complexity - O(n)
 
-function isAnagram(str1, str2) {
+function validAnagram(str1, str2) {
     // if the length of the str1 is not same as the length of the str2
     if (str1.length !== str2.length) {
         return false;
@@ -32,4 +32,14 @@ function isAnagram(str1, str2) {
     return true;
 }
 
-console.log(isAnagram('qwerty', 'qwetray'));
+console.log(validAnagram('qwerty', 'qwetray'));
+console.log(validAnagram('aaz', 'zza')); // false
+console.log(validAnagram('', '')); // true
+console.log(validAnagram('anagram', 'nagaram')); // true
+console.log(validAnagram('rat', 'car')); // false) // false
+console.log(validAnagram('awesome', 'awesom')); // false
+console.log(
+    validAnagram('amanaplanacanalpanama', 'acanalmanplanpamana')
+); // false
+console.log(validAnagram('qwerty', 'qeywrt')); // true
+console.log(validAnagram('texttwisttime', 'timetwisttext'));
