@@ -52,16 +52,18 @@ function validAnagram2(str1, str2) {
     for (let i = 0; i < str2.length; i++) {
         const char = str2[i];
 
+        // it is not an anagram if the str2 ever has a key=0 or does not have the key at all
         if (!lookup[char]) {
             return false;
         }
 
+        // subtract 1 from the value of the char
         lookup[char] -= 1;
     }
     return true;
 }
 
-console.log(validAnagram2('qwerty', 'qwetray'));
+console.log(validAnagram('qwerty', 'qwetry'));
 console.log(validAnagram('aaz', 'zza')); // false
 console.log(validAnagram('', '')); // true
 console.log(validAnagram('anagram', 'nagaram')); // true
