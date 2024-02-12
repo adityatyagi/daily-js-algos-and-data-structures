@@ -40,3 +40,28 @@ const curriedJoin = curry2(join);
 console.log(curriedJoin(1, 2, 3));
 console.log(curriedJoin(1)(2, 3));
 console.log(curriedJoin(1, 2)(3));
+
+
+
+
+function curryP(fn){
+    return function curried(...args){
+        if(args.length >= fn.length){
+            return fn.call(this, ...args);
+        } else {
+            return function next(...nextArgs){
+                return curried(...args, ...nextArgs);
+            }
+        }
+    }
+}
+function sum(a,b,c){
+    return a+b+c;
+}
+
+const currriedSum = curryP(sum);
+// VALID
+console.log("🚀 ~ currriedSum(1)(2)(3):", currriedSum(1)(2)(3))
+console.log("🚀 ~ currriedSum(1,2)(3):", currriedSum(1,2)(3))
+console.log("🚀 ~ currriedSum(1)(2,3):", currriedSum(1)(2,3))
+

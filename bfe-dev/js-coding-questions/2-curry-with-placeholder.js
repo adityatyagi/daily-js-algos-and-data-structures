@@ -100,17 +100,17 @@ function curry2(func) {
 curry.placeholder = Symbol();
 
 // test
-const join = (a, b, c) => {
-    return `${a}_${b}_${c}`;
-};
+// const join = (a, b, c) => {
+//     return `${a}_${b}_${c}`;
+// };
 
-const curriedJoin = curry2(join);
-const _ = curry.placeholder;
+// const curriedJoin = curry2(join);
+// const _ = curry.placeholder;
 
-// console.log(curriedJoin(1, 2, 3)); // '1_2_3'
-console.log(curriedJoin(1)(2)(3));
-console.log(curriedJoin(_, _, _)(1)(_, 3)(2));
-console.log(curriedJoin(_, 2)(1, 3));
+// // console.log(curriedJoin(1, 2, 3)); // '1_2_3'
+// console.log(curriedJoin(1)(2)(3));
+// console.log(curriedJoin(_, _, _)(1)(_, 3)(2));
+// console.log(curriedJoin(_, 2)(1, 3));
 
 /**
  * 
@@ -132,3 +132,74 @@ should have property 'curry.placeholder'
 (1)(_,3)(2)  
 
 */
+
+curryWithPlaceHolderPractice.placeholder = Symbol();
+function curryWithPlaceHolderPractice(fn){
+    return function curried(...args){
+
+        // sanitize the args - eliminate any extra args w.r.t to function parity
+        const sanitizedArgs = args.slice(0, fn.length);
+
+        // check if the args has any placeholders
+        const hasPlaceholder = sanitizedArgs.some(item => item === curryWithPlaceHolderPractice.placeholder);
+
+        // if there are no placeholders and the args are equal to the arity of the function
+        if(!hasPlaceholder && sanitizedArgs.length >= fn.length){
+            return fn.apply(this, sanitizedArgs);
+        } else {
+            return function next(...nextArgs){
+                return curried.apply(this, 
+                    mergeArgsPractice(sanitizedArgs, nextArgs))
+            }
+        }
+    }
+}
+
+function mergeArgsPractice(args, nextArgs){
+    let result = [];
+
+    // 2 pointer method
+    let i=0; // for agrs
+    let j=0; // for nextArgs
+
+    // replace placeholders with actual values
+    while(i < args.length && j < nextArgs.length){
+        // if the item from args is a placeholder then replace it with the first item on nextArgs
+        if(args[i] === curryWithPlaceHolderPractice.placeholder){
+            result.push(nextArgs[j]);
+            i += 1;
+            j += 1;
+        } else {
+            result.push(args[i]);
+            i += 1;
+        }
+    }
+
+    // push the remaining items from args
+    while(i < args.length){
+        result.push(args[i]);
+        i +=1;
+    }
+
+    // push the remaining items from nextArgs
+    while(j < nextArgs.length){
+        result.push(nextArgs[j]);
+        j +=1;
+    }
+
+    return [...result];
+}
+
+// test
+const joinPractice = (a, b, c) => {
+    return `${a}_${b}_${c}`;
+};
+
+const curriedJoinPractice = curry2(joinPractice);
+const _ = curry.placeholder;
+
+// console.log(curriedJoin(1, 2, 3)); // '1_2_3'
+console.log(curriedJoinPractice(1)(2)(3));
+console.log(curriedJoinPractice(_, _, _)(1)(_, 3)(2));
+console.log(curriedJoinPractice(_, 2)(1, 3));
+
