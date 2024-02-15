@@ -9,21 +9,18 @@ function throttle(cb, delay) {
             lastArgs = args;
             return;
         }
+        // if there is no running timer, then invoke the cb and start the timer with the delay
+        cb.apply(this, args);
+        isWaiting = true;
+        setTimeout(() => {
+            isWaiting = false;
 
-        if (!isWaiting) {
-            // if there is no running timer, then invoke the cb and start the timer with the delay
-            cb.apply(this, args);
-            isWaiting = true;
-            setTimeout(() => {
-                isWaiting = false;
-
-                // calling 1 additional callback from the stack
-                if (lastArgs) {
-                    throttled.apply(this, lastArgs);
-                    lastArgs = null;
-                }
-            }, delay);
-        }
+            // calling 1 additional callback from the stack
+            if (lastArgs) {
+                throttled.apply(this, lastArgs);
+                lastArgs = null;
+            }
+        }, delay);
     };
 }
 
