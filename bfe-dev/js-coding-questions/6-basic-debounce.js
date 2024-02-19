@@ -1,3 +1,4 @@
+// copy paste the code in sample.js and run index.html with Live Server
 function initApp() {
     function debounce(fn, wait) {
         let timer;
