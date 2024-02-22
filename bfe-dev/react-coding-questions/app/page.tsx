@@ -1,16 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-
 export default function Home() {
-  let [count, setCount] = useState(0);
-  function increment() {
-    setCount(++count);
-  }
-
-  function decrement() {
-    setCount(--count);
-  }
   return (
     <main className="min-h-screen p-24">
       <section id="hero">
