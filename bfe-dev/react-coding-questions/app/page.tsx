@@ -29,6 +29,12 @@ export default function Home() {
         >
           useTimeout Hook
         </Link>
+        <Link
+          href="/first-render"
+          className="mb-3 block rounded bg-black p-3 text-white hover:opacity-80"
+        >
+          firstRender hook
+        </Link>
       </section>
     </main>
   );
