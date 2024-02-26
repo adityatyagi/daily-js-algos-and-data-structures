@@ -25,6 +25,18 @@ export default function Home() {
         >
           firstRender hook
         </Link>
+        <Link
+          href="/use-swr"
+          className="mb-3 block rounded bg-black p-3 text-white hover:opacity-80"
+        >
+          useSwr hook
+        </Link>
+        <Link
+          href="/use-previous"
+          className="mb-3 block rounded bg-black p-3 text-white hover:opacity-80"
+        >
+          usePrevious hook
+        </Link>
       </section>
     </main>
   );
