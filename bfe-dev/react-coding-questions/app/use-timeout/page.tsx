@@ -45,7 +45,9 @@ export default function Home() {
 
   const [delay, setDelay] = useState(3000);
   const [hasTimeElapsed, setHasTimeElapsed] = React.useState(false);
+
   const [callback, setCallback] = useState<Function>(() => {
+    // returning a callback
     return () => {
       console.log("initial callback");
       setHasTimeElapsed(true);
@@ -56,6 +58,7 @@ export default function Home() {
 
   function updateCallback() {
     setCallback(() => {
+      // returning a callback
       return () => {
         console.log("Updated callback");
         setHasTimeElapsed(true);
