@@ -38,6 +38,16 @@ export default function Home() {
           usePrevious hook
         </Link>
       </section>
+
+      <section id="mcr" className="mt-20">
+        <h1 className="my-6 text-3xl">Machine Coding Round</h1>
+        <Link
+          href="/quiz-app"
+          className="mb-3 block rounded bg-black p-3 text-white hover:opacity-80"
+        >
+          quiz app
+        </Link>
+      </section>
     </main>
   );
 }
