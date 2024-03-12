@@ -246,8 +246,12 @@ function B() {}
 // What will be the values of each line in the following snippet:
 typeof a; // A
 typeof B; // A
+// In the snippet above, lines A will evaluate to the types of a and B. Both are functions so the typeof operator will return function for both
+
 Object.getPrototypeOf(a); // B
 Object.getPrototypeOf(B); // B
+// In lines B we are evaluating the prototypes of function. Both are functions and they are linked to Function.prototype. So the value of Function.prototype will be returned for each.
+
 a.prototype; // C
 console.log('🚀 ~ a.prototype:', a.prototype);
 B.prototype; // C
