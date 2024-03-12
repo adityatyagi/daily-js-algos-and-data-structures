@@ -33,6 +33,7 @@ function initApp() {
             setTimeout(timeoutFunc, delay);
         };
     }
+
     const throttledInputHandler = throttle(
         (e) => handleInput(e),
         2000
