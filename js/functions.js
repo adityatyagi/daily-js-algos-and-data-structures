@@ -186,3 +186,69 @@ console.log(Object.prototype.isPrototypeOf(dev)); // true
 
 // What is the difference between the classical and the prototypical inheritance?
 //  Answering this question is kind of tricky because both types of inheritance have the same effect, but the mechanism by which they achieve it is different. In JavaScript every object has a prototype object. These prototype objects are live objects that can be changed at any point in time. The most important thing to know about prototype objects is that they can be linked with each other to create chains. JavaScript internally can traverse these chains and look for methods and properties. So if you ask a random object about a property or method, it’s going to traverse the chain to find them. It will first look at the object itself and if it can’t find it there it will keep looking until it hits null. If it hits null and cannot find the value, it will return undefined. That is main different between classical inheritance and prototypical inheritance. In JavaScript inheritance is achieved by traversing prototype chains, as opposed to class blueprints that define rigid and non-dynamic inheritance relationships.
+
+// After an object is created, for example using the new keyword, how can we access the prototype object that the instantiated object is linked to?
+function Car() {}
+const car = new Car();
+console.log(Object.getPrototypeOf(car));
+
+//What is the equivalent of the following class in ES5?
+// class Company {
+//     constructor(name) {
+//         this.name = name;
+//     }
+//     hello() {
+//         return 'hello ' + this.name;
+//     }
+// }
+
+// class Robot extends Company {
+//     constructor(name, title) {
+//         super(name);
+//         this.title = title;
+//     }
+//     getTitle() {
+//         return this.title;
+//     }
+// }
+
+function Company(name) {
+    this.name = name;
+}
+Company.prototype.hello = function hello() {
+    return 'hello ' + this.name;
+};
+
+const c1 = new Company('sivana ltd');
+
+function Robot(name, title) {
+    Company.call(this, name); // extended only name from the parent
+    this.title = title;
+}
+
+// to extend Robot extends Company
+Robot.prototype = Object.create(Company.prototype);
+// Robot.prototype.constructor = Robot;
+Robot.prototype.getTitle = function getTitle() {
+    return this.title;
+};
+
+const r1 = new Robot('aditya', 'sivana ltd');
+console.log(Object.getPrototypeOf(r1));
+console.log(r1.hello());
+console.log(r1.getTitle());
+console.log(r1.name);
+
+// Given the following two functions:
+const a = () => {};
+function B() {}
+
+// What will be the values of each line in the following snippet:
+typeof a; // A
+typeof B; // A
+Object.getPrototypeOf(a); // B
+Object.getPrototypeOf(B); // B
+a.prototype; // C
+console.log('🚀 ~ a.prototype:', a.prototype);
+B.prototype; // C
+console.log('🚀 ~ B.prototype:', B.prototype);
