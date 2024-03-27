@@ -1,8 +1,6 @@
 // In JavaScript, a debounce function makes sure that your code is only triggered once per user input. Search box suggestions, text-field auto-saves, and eliminating double-button clicks are all use cases for debounce.
 function initApp() {
     const searchInput = document.getElementById('debounce');
-    console.log('🚀 ~ initApp ~ searchInput:', searchInput);
-
     const changeHandler = (e) => {
         console.log(e.target.value);
     };
