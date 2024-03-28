@@ -24,7 +24,14 @@ function compose(...fns) {
         //     result = fns[i](result);
         // }
         // return result;
-        return fns.reduceRight((acc, curr) => {
+
+        // compose: Right -> Left
+        // return fns.reduceRight((acc, curr) => {
+        //     return curr(acc);
+        // }, init);
+
+        // pipe: Left -> Right
+        return fns.reduce((acc, curr) => {
             return curr(acc);
         }, init);
     };
