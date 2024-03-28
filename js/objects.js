@@ -163,7 +163,7 @@ function init() {
     console.log('🚀 ~ init ~ deepCopyPerson3_C:', deepCopyPerson3_C);
     console.log(person3);
 
-    // copy a deeply nested object
+    // copy a shallow nested object
     const mobile = {
         name: 'samsung',
         model: 213213,
