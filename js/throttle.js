@@ -39,5 +39,44 @@ function initApp() {
         2000
     );
     searchInput.addEventListener('input', throttledInputHandler);
+
+    // question
+    // Ques 1 Create a button UI and add debounce as follows =>
+    // --> Show "Button Pressed <X> Times" every time button is pressed
+    // --> Increase "Triggered <Y> Times" count after 800ms of throttle
+    let clickTimes = 0;
+    let triggerTimes = 0;
+    const throttleBtn = document.querySelector('#throttleBtn');
+    const throttleTriggerText = document.querySelector(
+        '#throttleBtnTrigger'
+    );
+    const start = new Date().getTime();
+    const btnClickHandler = function (e) {
+        console.log('clicked');
+        const now = new Date().getTime();
+        console.log(now - start);
+        throttleTriggerText.textContent = ++triggerTimes;
+    };
+    function myThrottle(cb, delay) {
+        let shouldWait = false;
+        return function (...args) {
+            if (shouldWait) {
+                return;
+            }
+            cb(...args);
+            shouldWait = true;
+            setTimeout(() => {
+                shouldWait = false;
+            }, delay);
+        };
+    }
+    const throttledHandler = myThrottle(
+        (e) => btnClickHandler(e),
+        800
+    );
+    throttleBtn.addEventListener('click', function (e) {
+        throttleBtn.textContent = `Clicked ${++clickTimes} times`;
+        throttledHandler(e);
+    });
 }
 document.addEventListener('DOMContentLoaded', initApp);
