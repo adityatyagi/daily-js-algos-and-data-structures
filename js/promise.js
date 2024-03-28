@@ -491,30 +491,7 @@ Promise.myAll = function (promArr) {
     });
 };
 
-Promise.myAll2 = function (promArr) {
-    return new Promise((resolve, reject) => {
-        let results = [];
-        if (!promArr.length) {
-            resolve(results);
-            return;
-        }
-
-        let promisesPendingToBeResolved = promArr.length;
-
-        promArr.forEach((promise, idx) => {
-            Promise.resolve(promise).then(function (data) {
-                results[idx] = data;
-                promisesPendingToBeResolved--;
-
-                if (promisesPendingToBeResolved === 0) {
-                    resolve(results);
-                }
-            }, reject);
-        });
-    });
-};
-
-Promise.myAll2(allPromisesToTestAllPollyfill)
+Promise.myAll(allPromisesToTestAllPollyfill)
     .then((data) => {
         console.log('allPromisesToTestAllPollyfill: data', data);
     })
