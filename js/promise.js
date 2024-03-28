@@ -440,14 +440,15 @@ function MyPromise(executor) {
         reject(error);
     }
 }
+
 const samplePromise = new MyPromise((resolve, reject) => {
     // in async mode - first the .then will be called and then the resolve
-    setTimeout(() => {
-        reject(2);
-    }, 1000);
+    // setTimeout(() => {
+    //     reject(2);
+    // }, 1000);
 
     // in sync mode - first the resolve will be called and then the .then, hence the resolveFunc will not be assigned a callback
-    // resolve(2);
+    reject(2);
 });
 
 samplePromise
@@ -456,4 +457,70 @@ samplePromise
     })
     .catch(function (error) {
         console.log('🚀 ~ error: in .then samplePromise', error);
+    });
+
+// pollyfill for promise.all - all or nothing
+// input - takes an array of promises
+// output - array of promise results if all promises fulfilled, if any one rejected, throw error
+const allPromisesToTestAllPollyfill = [
+    importantActionPromise('Hero'),
+    likePromise(2),
+    sharePromise('nitin'),
+    rejectPromise(),
+];
+Promise.myAll = function (promArr) {
+    return new Promise((resolve, reject) => {
+        let results = [];
+        if (promArr.length === 0) {
+            resolve(results);
+            return;
+        }
+
+        // get the first promise
+        let pending = promArr.length;
+
+        promArr.forEach((promise, idx) => {
+            Promise.resolve(promise).then(function (res) {
+                results[idx] = res;
+                pending--;
+                if (pending === 0) {
+                    resolve(results);
+                }
+            }, reject);
+        });
+    });
+};
+
+Promise.myAll2 = function (promArr) {
+    return new Promise((resolve, reject) => {
+        let results = [];
+        if (!promArr.length) {
+            resolve(results);
+            return;
+        }
+
+        let promisesPendingToBeResolved = promArr.length;
+
+        promArr.forEach((promise, idx) => {
+            Promise.resolve(promise).then(function (data) {
+                results[idx] = data;
+                promisesPendingToBeResolved--;
+
+                if (promisesPendingToBeResolved === 0) {
+                    resolve(results);
+                }
+            }, reject);
+        });
+    });
+};
+
+Promise.myAll2(allPromisesToTestAllPollyfill)
+    .then((data) => {
+        console.log('allPromisesToTestAllPollyfill: data', data);
+    })
+    .catch((error) => {
+        console.log(
+            '🚀 ~ error:allPromisesToTestAllPollyfill',
+            error
+        );
     });
