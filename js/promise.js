@@ -375,6 +375,7 @@ function promRecurse(funcPromises) {
     if (funcPromises.length === 0) return;
 
     // get the first promise from the array from the start: L -> R
+    // changes the original array funcPromises
     const promise = funcPromises.shift();
 
     // resolve the promise
@@ -483,6 +484,8 @@ Promise.myAll = function (promArr) {
             Promise.resolve(promise).then(function (res) {
                 results[idx] = res;
                 pending--;
+
+                // exit
                 if (pending === 0) {
                     resolve(results);
                 }

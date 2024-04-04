@@ -27,7 +27,7 @@ var person = {
 };
 
 var person2 = { age: 28 };
-console.log(person.getAge.call(person2)); // 24
+console.log(person.getAge.call(person2)); // 28
 
 // -----------------------
 console.log('***************************');
@@ -121,7 +121,7 @@ console.log('***************************');
 // Call, Bind and Apply in Javascript (Explicit Binding)
 // Question 10 - Bound function
 function f() {
-    console.log(this); // window
+    console.log(' Question 10 - Bound function', this); // window
 }
 let user = {
     g: f.bind(null),
@@ -169,8 +169,8 @@ Function.prototype.myCall = function (context = globalThis, ...args) {
         throw new Error(this + ' is not callable');
     }
 
+    // The randomProp variable is used to ensure that the function being called using myCall does not accidentally overwrite any existing properties on the context object.
     let randomProp = Math.random();
-    console.log('🚀 ~ randomProp:', randomProp);
 
     // if the context obj have a similar key-vlue pair already, then change the randomProp
     while (context[randomProp] !== undefined) {

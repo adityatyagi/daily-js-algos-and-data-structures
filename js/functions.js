@@ -62,16 +62,13 @@ console.log(
 //       console.log('printing in hello', this.name); // undefined
 //     }, 100);
 //   }
+// hello.call({ name: 'tom' }); -- will not work as the callback function in setTimeout is normal function and not an arrow function
 function hello() {
     setTimeout(() => {
         console.log('printing in hello', this.name); // tom
     }, 100);
 }
 hello.call({ name: 'tom' });
-
-/**
- * In the snippet above, console.log is called inside an anonymous callback function passed to setTimeout. In this case, the callback function will create a context that is not explicitly set. In non-strict mode, this will be set to the global object. Even if we are calling the hello function with call and we are setting the context of hello to {name: 'tom'}, the callback function will not use the same context as the hello function and it will look for the name property on the global object. If a name property is defined it will return the value, otherwise it will log undefined. In order to use the same context as the hello function, we can use an arrow function or set this to another variable:
- */
 
 // Describe what a debounce higher order function does and when you may want to use it?
 /**
@@ -185,7 +182,11 @@ console.log(Person2.prototype.isPrototypeOf(dev)); // true
 console.log(Object.prototype.isPrototypeOf(dev)); // true
 
 // What is the difference between the classical and the prototypical inheritance?
-//  Answering this question is kind of tricky because both types of inheritance have the same effect, but the mechanism by which they achieve it is different. In JavaScript every object has a prototype object. These prototype objects are live objects that can be changed at any point in time. The most important thing to know about prototype objects is that they can be linked with each other to create chains. JavaScript internally can traverse these chains and look for methods and properties. So if you ask a random object about a property or method, it’s going to traverse the chain to find them. It will first look at the object itself and if it can’t find it there it will keep looking until it hits null. If it hits null and cannot find the value, it will return undefined. That is main different between classical inheritance and prototypical inheritance. In JavaScript inheritance is achieved by traversing prototype chains, as opposed to class blueprints that define rigid and non-dynamic inheritance relationships.
+//  Answering this question is kind of tricky because both types of inheritance have the same effect, but the mechanism by which they achieve it is different. In JavaScript every object has a prototype object. These prototype objects are live objects that can be changed at any point in time.
+
+// The most important thing to know about prototype objects is that they can be linked with each other to create chains.
+
+// JavaScript internally can traverse these chains and look for methods and properties. So if you ask a random object about a property or method, it’s going to traverse the chain to find them. It will first look at the object itself and if it can’t find it there it will keep looking until it hits null. If it hits null and cannot find the value, it will return undefined. That is main different between classical inheritance and prototypical inheritance. In JavaScript inheritance is achieved by traversing prototype chains, as opposed to class blueprints that define rigid and non-dynamic inheritance relationships.
 
 // After an object is created, for example using the new keyword, how can we access the prototype object that the instantiated object is linked to?
 function Car() {}
@@ -228,7 +229,7 @@ function Robot(name, title) {
 
 // to extend Robot extends Company
 Robot.prototype = Object.create(Company.prototype);
-// Robot.prototype.constructor = Robot;
+Robot.prototype.constructor = Robot;
 Robot.prototype.getTitle = function getTitle() {
     return this.title;
 };
@@ -253,6 +254,20 @@ Object.getPrototypeOf(B); // B
 // In lines B we are evaluating the prototypes of function. Both are functions and they are linked to Function.prototype. So the value of Function.prototype will be returned for each.
 
 a.prototype; // C
-console.log('🚀 ~ a.prototype:', a.prototype);
+console.log('🚀 ~ a.prototype:', a.prototype); // undefined
 B.prototype; // C
-console.log('🚀 ~ B.prototype:', B.prototype);
+console.log('🚀 ~ B.prototype:', B.prototype); //
+
+// Object.getPrototypeOf(a) is not undefined is due to how arrow functions and regular functions handle the this context and their internal [[Prototype]] property.
+
+// Arrow Functions:
+// Arrow functions do not have their own this context. Instead, they inherit the this value from the enclosing lexical scope (i.e., the scope in which they are defined). This behavior is one of the key distinctions between arrow functions and regular functions.
+// Arrow functions also do not have their own [[Prototype]] property. They inherit their [[Prototype]] from the surrounding lexical scope, which is typically Object.prototype.
+
+// Regular Functions:
+// Regular functions, on the other hand, have their own this context, which is determined by how they are called (e.g., with new, as a method, or via call() or apply()).
+// Regular functions also have a prototype property, which is used in the prototypal inheritance chain when creating instances with the new keyword. This prototype property is accessible directly on the function itself.
+
+// In the case of a, a.prototype is undefined because arrow functions do not have a prototype property of their own. However, Object.getPrototypeOf(a) returns [Object: null prototype] {}, which is the prototype of a. This behavior reflects the inheritance of the arrow function's [[Prototype]] from its surrounding lexical scope.
+
+// In contrast, b.prototype exists because b is a regular function, and it has its own prototype property. Thus, b.prototype refers to the prototype object associated with instances created with new b(). Similarly, Object.getPrototypeOf(b) returns [Function], which is the constructor function itself.

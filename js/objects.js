@@ -126,6 +126,22 @@ function init() {
     multiply(value); // passing reference to the original value obj - 20
     multiply(value); // the previous call updated the value object's number key to 20, hence 40
 
+    // First Call to multiply(value):
+    // The value object is passed to the multiply function.
+    // Inside the function, a new object x is created by spreading the properties of value.
+    // The number property of x is modified to 20 within the function, doubling its value.
+    // After the first call, the value object remains unchanged outside the function.
+
+    // Second Call to multiply(value):
+    // Again, the value object is passed to the multiply function.
+    // Inside the function, a new object x is created by spreading the properties of value.
+    // At this point, x is a separate object from the x used in the first call. It's a new instance with its own number property.
+
+    // However, since the value object was modified outside the function in the previous call, its number property is now 20.
+    // Therefore, the new x object created in the second call also has its number property set to 20.
+    // When the number property of x is modified by doubling its value, it becomes 40.
+    // This results in the second call printing 40.
+
     // whats the output
     function changeAgeAndReference(person) {
         person.age = 25;

@@ -19,7 +19,7 @@ function init() {
 
     // sum(1,2) -> sum(1)(2);
     const curriedSum = curry(sum);
-    // console.log(curriedSum(1)(2));
+    console.log(curriedSum(1)(2));
     // console.log(curriedSum(1, 2));
     // console.log(curriedSum(1)(2)(3)); // curriedSum(1)(2) does not return a new function expecting the next argument and hence this gives an error
 

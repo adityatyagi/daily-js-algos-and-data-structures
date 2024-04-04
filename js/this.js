@@ -132,14 +132,14 @@ const user3 = {
 
 // inside setTimeout, the "user3.logMessage" is no longer being accessed as a method. It is accessed as a callback and hence the entire function is copied to the callback and hence will loose the access to the user3 object - therefore will lose the access to the this keyword
 
+// issue
+setTimeout(user3.logMessage, 1000); // WINDOW
+
 // inside the callback, the logMessage will reference "this" to the window object
 setTimeout(function () {
     // to fix the issue, we wrap the method in a function so that we no longer pass it as a callback
     user3.logMessage();
 }, 1000);
-
-// issue
-setTimeout(user3.logMessage, 1000); // WINDOW
 
 // -----------------------
 console.log('***************************');

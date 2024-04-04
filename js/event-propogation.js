@@ -21,7 +21,7 @@ const buttonElement = document.querySelector('.innerButton');
 /**
  * event.target = event origin
  * event.currentTarget = the current event (can come up because of the bubbling)
- * this.target = will target on which the event handler is called
+ * this = event.currentTarget
  */
 
 function clickHandler(event) {
@@ -35,17 +35,21 @@ function clickHandler(event) {
     );
 }
 
+divElement.addEventListener('click', clickHandler);
+formElement.addEventListener('click', clickHandler);
+buttonElement.addEventListener('click', clickHandler);
+
 // event caputring / event trickling: events top-bottom
 // event bubbling: events bottom - to - top
-divElement.addEventListener(
-    'click',
-    function (e) {
-        alert('div');
-    },
-    {
-        capture: true,
-    }
-);
+// divElement.addEventListener(
+//     'click',
+//     function (e) {
+//         alert('div');
+//     },
+//     {
+//         capture: true,
+//     }
+// );
 formElement.addEventListener(
     'click',
     function () {
@@ -74,7 +78,7 @@ formElement.addEventListener('click', function (e) {
 });
 
 buttonElement.addEventListener('click', function (e) {
-    e.stopPropagation(); // stops the event bubbling. can also tackle event trickling the same way
+    // e.stopPropagation(); // stops the event bubbling. can also tackle event trickling the same way
     alert('button');
 });
 
