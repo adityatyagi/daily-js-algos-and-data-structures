@@ -1,16 +1,16 @@
 {
-  "name": "js-algorithms",
-  "version": "1.0.0",
-  "description": "sample course setup",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "Obosi Philip",
-  "license": "ISC",
-  "devDependencies": {
-    "http-server": "^14.1.1",
-    "jest": "^23.6.0",
-    "nodemon": "^2.0.20"
-  }
+    "name": "js-algorithms",
+    "version": "1.0.0",
+    "description": "sample course setup",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "author": "Aditya Tyagi",
+    "license": "MIT",
+    "devDependencies": {
+        "http-server": "^14.1.1",
+        "jest": "^23.6.0",
+        "nodemon": "^2.0.20"
+    }
 }
