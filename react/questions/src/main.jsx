@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { About, Contact, ErrorNotFound, Home } from './pages';
+import {
+    About,
+    Contact,
+    ErrorNotFound,
+    Home,
+    UseMemoComponent,
+} from './pages';
 import './index.css';
 import ThemeContextProvider from './context/theme-context.jsx';
 import {
@@ -26,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: '/about',
                 element: <About />,
+            },
+            {
+                path: '/use-memo',
+                element: <UseMemoComponent />,
             },
         ],
     },
