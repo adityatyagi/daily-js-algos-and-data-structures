@@ -1,4 +1,10 @@
-import { useCallback, useMemo } from 'react';
+import {
+    forwardRef,
+    useCallback,
+    useMemo,
+    useRef,
+    useImperativeHandle,
+} from 'react';
 import { useReducer, useState } from 'react';
 
 const shoppingReducer = (state, action) => {
@@ -29,6 +35,43 @@ const initialCart = {
         },
     ],
 };
+
+const Parent = () => {
+    const parentRef = useRef(null);
+    return (
+        <>
+            <h1>Parent</h1>
+            <button
+                type="button"
+                onClick={() => parentRef.current.onFocus()}
+            >
+                Focus on input
+            </button>
+            <Child ref={parentRef} />
+        </>
+    );
+};
+
+const Child = forwardRef((props, ref) => {
+    const inputRef = useRef(null);
+    function onFocus() {
+        inputRef.current.focus();
+    }
+    useImperativeHandle(ref, () => {
+        return {
+            onFocus,
+        };
+    });
+
+    return (
+        <>
+            <h1>Child</h1>
+            <input ref={inputRef} type="text" />
+        </>
+    );
+});
+Child.displayName = 'Child';
+
 const Home = () => {
     const [state, dispatch] = useReducer(
         shoppingReducer,
@@ -67,7 +110,7 @@ const Home = () => {
     }, []);
 
     return (
-        <h1>
+        <>
             <ul>
                 {state.cart.map((item) => (
                     <li key={item.id}>{item.name}</li>
@@ -123,7 +166,9 @@ const Home = () => {
             <button type="button" onClick={counter2Change}>
                 Increment Counter 2
             </button>
-        </h1>
+            <hr />
+            <Parent />
+        </>
     );
 };
 
