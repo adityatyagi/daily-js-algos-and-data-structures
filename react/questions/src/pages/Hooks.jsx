@@ -1,15 +1,27 @@
 import useCounter from '../hooks/useCounter';
 import useWindowSize from '../hooks/useWindowSize';
 import useFetch from '../hooks/useFetch';
+import useDebounce from '../hooks/useDebounce';
+import useDebounceFunc from '../hooks/useDebounceFunc';
+import { useState } from 'react';
 const Hooks = () => {
     const { count, increment, decrement, reset } = useCounter(0, 1);
     const { width, height } = useWindowSize();
     const { data, isLoading, error } = useFetch(
         'https://jsonplaceholder.typicode.com/users',
-        {
-            method: 'GET',
-        }
+        { method: 'GET' }
     );
+    const [inputText, setInputText] = useState(null);
+    const debouncedText = useDebounce(inputText, 1000);
+    const debouncedInputChangeHandler = useDebounceFunc(
+        inputChangeHandler,
+        1000
+    );
+    function inputChangeHandler(e) {
+        console.log(e.target.value);
+        const text = e.target.value;
+        setInputText(text);
+    }
 
     return (
         <div>
@@ -46,6 +58,16 @@ const Hooks = () => {
                             ))}
                     </ul>
                 )}
+            </div>
+            <hr />
+            <div>
+                <h2>useDebounce</h2>
+                <input
+                    type="text"
+                    onChange={debouncedInputChangeHandler}
+                />
+                <p>Text: {inputText}</p>
+                <p>Debounced Text: {debouncedText}</p>
             </div>
         </div>
     );

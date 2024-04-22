@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useFetch = (url, options) => {
+const useFetch = (url, options = { method: 'GET' }) => {
     const [data, setData] = useState(null);
     const [error, seterror] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -9,10 +9,7 @@ const useFetch = (url, options) => {
         async function fetchData() {
             setIsLoading(true);
             try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    ...options,
-                });
+                const response = await fetch(url, { ...options });
                 if (!response.ok) {
                     throw new Error('something went wrong');
                 }
@@ -24,10 +21,12 @@ const useFetch = (url, options) => {
                 setIsLoading(false);
             }
         }
+
+        // run useFetch only on the first render
         if (url) {
             fetchData();
         }
-    }, [url, options]);
+    }, [url]);
     return {
         data,
         isLoading,
