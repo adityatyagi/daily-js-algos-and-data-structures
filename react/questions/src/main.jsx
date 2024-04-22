@@ -5,6 +5,7 @@ import {
     Contact,
     ErrorNotFound,
     Home,
+    Hooks,
     UseMemoComponent,
 } from './pages';
 import './index.css';
@@ -33,9 +34,14 @@ const router = createBrowserRouter([
                 path: '/about',
                 element: <About />,
             },
+
             {
                 path: '/use-memo',
                 element: <UseMemoComponent />,
+            },
+            {
+                path: '/custom-hooks',
+                element: <Hooks />,
             },
         ],
     },
