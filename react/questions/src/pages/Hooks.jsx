@@ -4,6 +4,9 @@ import useFetch from '../hooks/useFetch';
 import useDebounce from '../hooks/useDebounce';
 import useDebounceFunc from '../hooks/useDebounceFunc';
 import { useState } from 'react';
+import useThrottle from '../hooks/useThrottle';
+import useLocalStorage from '../hooks/useLocalStorage';
+
 const Hooks = () => {
     const { count, increment, decrement, reset } = useCounter(0, 1);
     const { width, height } = useWindowSize();
@@ -12,17 +15,35 @@ const Hooks = () => {
         { method: 'GET' }
     );
     const [inputText, setInputText] = useState(null);
+    const [throttleInputText, setThrottleInputText] = useState(null);
     const debouncedText = useDebounce(inputText, 1000);
-    const debouncedInputChangeHandler = useDebounceFunc(
-        inputChangeHandler,
-        1000
-    );
+
     function inputChangeHandler(e) {
-        console.log(e.target.value);
         const text = e.target.value;
         setInputText(text);
     }
 
+    const debouncedInputChangeHandler = useDebounceFunc(
+        inputChangeHandler,
+        1000
+    );
+
+    function inputChangeHandlerThrottle(e) {
+        const text = e.target.value;
+        setThrottleInputText(text);
+    }
+    const throttledInputHandler = useThrottle(
+        inputChangeHandlerThrottle,
+        1000
+    );
+
+    const [value, set, remove] = useLocalStorage('username', 'guest');
+    // saving default values in the localstorage
+    const [valueForLS, setValueForLS] = useState();
+
+    function saveOnLocalStorage() {
+        set(valueForLS);
+    }
     return (
         <div>
             Hooks
@@ -68,6 +89,31 @@ const Hooks = () => {
                 />
                 <p>Text: {inputText}</p>
                 <p>Debounced Text: {debouncedText}</p>
+            </div>
+            <div>
+                <h2>useThrottle</h2>
+                <input type="text" onChange={throttledInputHandler} />
+                <p>Throttled Text: {throttleInputText}</p>
+            </div>
+            <div>
+                <h2>useLocalStorage</h2>
+                <input
+                    type="text"
+                    placeholder="value"
+                    onChange={(e) => setValueForLS(e.target.value)}
+                />
+                <button type="button" onClick={saveOnLocalStorage}>
+                    Save in Local Storage
+                </button>
+                <button type="button">Get - {value}</button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        remove('sample');
+                    }}
+                >
+                    remove
+                </button>
             </div>
         </div>
     );
