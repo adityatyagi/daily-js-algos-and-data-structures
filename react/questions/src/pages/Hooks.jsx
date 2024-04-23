@@ -3,12 +3,14 @@ import useWindowSize from '../hooks/useWindowSize';
 import useFetch from '../hooks/useFetch';
 import useDebounce from '../hooks/useDebounce';
 import useDebounceFunc from '../hooks/useDebounceFunc';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import useThrottle from '../hooks/useThrottle';
 import useLocalStorage from '../hooks/useLocalStorage';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 const Hooks = () => {
     const { count, increment, decrement, reset } = useCounter(0, 1);
+    const blueBoxRef = useRef(null);
     const { width, height } = useWindowSize();
     const { data, isLoading, error } = useFetch(
         'https://jsonplaceholder.typicode.com/users',
@@ -44,6 +46,21 @@ const Hooks = () => {
     function saveOnLocalStorage() {
         set(valueForLS);
     }
+    const options = useMemo(() => {
+        return {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 1.0, // when the blue box is completely visible
+        };
+    }, []);
+    const intersectingEntry = useIntersectionObserver(
+        blueBoxRef,
+        options
+    );
+    console.log(
+        '🚀 ~ Hooks ~ intersectingEntry:',
+        intersectingEntry?.isIntersecting
+    );
     return (
         <div>
             Hooks
@@ -114,6 +131,26 @@ const Hooks = () => {
                 >
                     remove
                 </button>
+            </div>
+            <div>
+                <h1>Intersection Observer Hook</h1>
+                <div
+                    style={{
+                        height: '200vh',
+                    }}
+                >
+                    <div
+                        ref={blueBoxRef}
+                        style={{
+                            height: '50vh',
+                            background: 'lightblue',
+                        }}
+                    >
+                        <h3>
+                            Announce when this comes into viewport
+                        </h3>
+                    </div>
+                </div>
             </div>
         </div>
     );
