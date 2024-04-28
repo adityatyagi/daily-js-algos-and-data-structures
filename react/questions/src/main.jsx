@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import {
     About,
     Contact,
-    ErrorNotFound,
     Home,
     Hooks,
     Posts,
     PostsDetails,
     UseMemoComponent,
+    ErrorComponent,
 } from './pages';
 import './index.css';
 import ThemeContextProvider from './context/theme-context.jsx';
@@ -18,12 +18,13 @@ import {
 } from 'react-router-dom';
 import Root from './routes/Root.jsx';
 import LRUCacheComponent from './pages/LRUCacheComponent.jsx';
+import { postsLoader } from './pages/Posts.jsx';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Root />,
-        errorElement: <ErrorNotFound />,
+        errorElement: <ErrorComponent />,
         children: [
             {
                 path: '/',
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
             {
                 path: '/posts',
                 element: <Posts />,
+                loader: postsLoader,
             },
             {
                 path: '/posts/:postsId',

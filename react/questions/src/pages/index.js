@@ -1,19 +1,9 @@
-import About from './About';
-import Contact from './Contact';
-import ErrorNotFound from './ErrorNotFound';
-import Home from './Home';
-import UseMemoComponent from './UseMemo';
-import Hooks from './Hooks';
-import PostsDetails from './PostsDetails';
-import Posts from './Posts';
-
-export {
-    About,
-    Contact,
-    ErrorNotFound,
-    Home,
-    UseMemoComponent,
-    Hooks,
-    Posts,
-    PostsDetails,
-};
+export { default as About } from './About.jsx';
+export { default as Contact } from './Contact.jsx';
+export { default as ErrorNotFound } from './ErrorComponent.jsx';
+export { default as Home } from './Home.jsx';
+export { default as UseMemoComponent } from './UseMemo.jsx';
+export { default as Hooks } from './Hooks.jsx';
+export { default as Posts } from './Posts.jsx';
+export { default as PostsDetails } from './PostsDetails.jsx';
+export { default as ErrorComponent } from './ErrorComponent.jsx';

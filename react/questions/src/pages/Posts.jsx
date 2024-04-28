@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 /**
  * This component is used to render the Posts page.
  * @function
@@ -8,27 +6,29 @@ import { Link } from 'react-router-dom';
  */
 const Posts = () => {
     // https://jsonplaceholder.typicode.com/posts
-    const [postsData, setPostsData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // const [postsData, setPostsData] = useState([]);
+    // const [isLoading, setIsLoading] = useState(true);
 
-    async function fetchPosts() {
-        try {
-            const response = await fetch(
-                'https://jsonplaceholder.typicode.com/posts'
-            );
-            if (!response.ok) throw new Error('Something went wrong');
-            const data = await response.json();
-            setPostsData(data);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setIsLoading(false);
-        }
-    }
+    // async function fetchPosts() {
+    //     try {
+    //         const response = await fetch(
+    //             'https://jsonplaceholder.typicode.com/posts'
+    //         );
+    //         if (!response.ok) throw new Error('Something went wrong');
+    //         const data = await response.json();
+    //         setPostsData(data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // }
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
+    // useEffect(() => {
+    //     fetchPosts();
+    // }, []);
+
+    const postsData = useLoaderData();
 
     // Render the Posts page
     return (
@@ -38,28 +38,11 @@ const Posts = () => {
             {/* Link to the first post */}
 
             <ul>
-                {postsData.map((item) => {
+                {postsData?.map((item) => {
                     return (
                         <li key={item.id}>
                             <div>
-                                <Link
-                                    className={({
-                                        isActive,
-                                        isLoading,
-                                        isTransitioning,
-                                    }) =>
-                                        [
-                                            isActive ? 'active' : '',
-                                            isLoading
-                                                ? 'loading'
-                                                : '',
-                                            isTransitioning
-                                                ? 'isTransitioning'
-                                                : '',
-                                        ].join(' ')
-                                    }
-                                    to={`/posts/${item.id}`}
-                                >
+                                <Link to={`/posts/${item.id}`}>
                                     {item.title}
                                 </Link>
                             </div>
@@ -70,5 +53,36 @@ const Posts = () => {
         </div>
     );
 };
+
+/**
+ * Asynchronously loads posts from the specified URL.
+ *
+ * @return {Promise<Array>} An array of posts.
+ */
+export async function postsLoader() {
+    try {
+        const response = await fetch(
+            'https://jsonplaceholder.typicode.com/posts'
+        );
+        if (!response.ok) throw new Error('Something went wrong!!!!');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        throw new Response('Something went wrong', {
+            status: 500,
+            error,
+        });
+    }
+    // const response = await fetch(
+    //     'https://jsonplaceholder.typicode.com/postss'
+    // );
+    // if (response.status === 404) {
+    //     throw new Response('Not Found', { status: 404 });
+    // }
+    // if (!response.ok) {
+    //     throw new Response('Something went wrong', { status: 400 });
+    // }
+    // return await response.json();
+}
 
 export default Posts;
