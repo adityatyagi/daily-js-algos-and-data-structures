@@ -1,4 +1,8 @@
-import { Link, useLoaderData } from 'react-router-dom';
+import {
+    Link,
+    useLoaderData,
+    useSearchParams,
+} from 'react-router-dom';
 /**
  * This component is used to render the Posts page.
  * @function
@@ -29,6 +33,14 @@ const Posts = () => {
     // }, []);
 
     const postsData = useLoaderData();
+    let [searchParams, setSearchParams] = useSearchParams();
+    const updateSearchParams = (newParams) => {
+        const params = {
+            ...Object.fromEntries(searchParams),
+            ...newParams,
+        };
+        setSearchParams(params);
+    };
 
     // Render the Posts page
     return (
@@ -50,6 +62,17 @@ const Posts = () => {
                     );
                 })}
             </ul>
+
+            <button
+                onClick={() => updateSearchParams({ color: 'red' })}
+            >
+                Red
+            </button>
+            <button
+                onClick={() => updateSearchParams({ size: '10' })}
+            >
+                Size 10
+            </button>
         </div>
     );
 };
