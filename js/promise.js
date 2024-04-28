@@ -273,7 +273,7 @@ promise3
     })
     .catch(function (error) {
         console.log(error);
-        return job(false); // rejected promise
+        return job(false); // rejected/failed promise
     })
     .then(function (data) {
         console.log(data);

@@ -15,6 +15,7 @@ import {
     RouterProvider,
 } from 'react-router-dom';
 import Root from './routes/Root.jsx';
+import LRUCacheComponent from './pages/LRUCacheComponent.jsx';
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: '/custom-hooks',
                 element: <Hooks />,
+            },
+            {
+                path: '/lru',
+                element: <LRUCacheComponent />,
             },
         ],
     },
