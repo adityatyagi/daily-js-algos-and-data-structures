@@ -19,6 +19,7 @@ import {
 import Root from './routes/Root.jsx';
 import LRUCacheComponent from './pages/LRUCacheComponent.jsx';
 import { postsLoader } from './pages/Posts.jsx';
+import { postDetailsLoader } from './pages/postDetailsLoader.js';
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
             {
                 path: '/posts/:postsId',
                 element: <PostsDetails />,
+                loader: postDetailsLoader,
             },
         ],
     },
