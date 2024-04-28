@@ -6,6 +6,8 @@ import {
     ErrorNotFound,
     Home,
     Hooks,
+    Posts,
+    PostsDetails,
     UseMemoComponent,
 } from './pages';
 import './index.css';
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
             {
                 path: '/lru',
                 element: <LRUCacheComponent />,
+            },
+            {
+                path: '/posts',
+                element: <Posts />,
+            },
+            {
+                path: '/posts/:postsId',
+                element: <PostsDetails />,
             },
         ],
     },

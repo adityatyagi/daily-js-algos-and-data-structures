@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import { useThemeContext } from '../../context/theme-context';
 import './header.css';
 const Header = () => {
@@ -13,10 +14,12 @@ const Header = () => {
                 />
             </div>
 
-            <ul>
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
+            <ul className="navlist">
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/about">About</NavLink>
+                <NavLink to="/contact">Contact</NavLink>
+                <NavLink to="/posts">Posts</NavLink>
+                <NavLink to="/lru">LRU</NavLink>
             </ul>
         </div>
     );

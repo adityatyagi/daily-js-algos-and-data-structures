@@ -4,6 +4,8 @@ import ErrorNotFound from './ErrorNotFound';
 import Home from './Home';
 import UseMemoComponent from './UseMemo';
 import Hooks from './Hooks';
+import PostsDetails from './PostsDetails';
+import Posts from './Posts';
 
 export {
     About,
@@ -12,4 +14,6 @@ export {
     Home,
     UseMemoComponent,
     Hooks,
+    Posts,
+    PostsDetails,
 };
