@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 const PostDetails = () => {
     // states for api loading, post details and post comments
@@ -61,7 +61,7 @@ const PostDetails = () => {
     // }, [callbackedFetchData]);
 
     // if (isLoading) return <p>Loading...</p>;
-
+    const navigate = useNavigate();
     const [postDetails, postComments] = useLoaderData();
 
     return (
@@ -76,6 +76,7 @@ const PostDetails = () => {
                         <li key={comment.id}>{comment.body}</li>
                     ))}
                 </ul>
+                <button onClick={() => navigate(-1)}>Back</button>
             </div>
         </div>
     );
