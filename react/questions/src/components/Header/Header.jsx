@@ -20,6 +20,7 @@ const Header = () => {
                 <NavLink to="/contact">Contact</NavLink>
                 <NavLink to="/posts">Posts</NavLink>
                 <NavLink to="/lru">LRU</NavLink>
+                <NavLink to="/auth">Auth</NavLink>
             </ul>
         </div>
     );

@@ -1,11 +1,11 @@
 import {
     forwardRef,
     useCallback,
-    useMemo,
-    useRef,
     useImperativeHandle,
+    useReducer,
+    useRef,
+    useState,
 } from 'react';
-import { useReducer, useState } from 'react';
 
 const shoppingReducer = (state, action) => {
     switch (action.type) {
