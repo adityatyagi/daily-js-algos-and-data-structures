@@ -71,7 +71,8 @@ function init() {
     // add eventListener to listen to the click event on the list but only react acc. to the buttons
     list.addEventListener('click', (e) => {
         const target = e.target;
-        const listItemInContext = target.parentNode;
+        const listItemInContext = target.parentNode; // <li>
+
         // check if the target is a button and act accordingly
         if (e.target.innerText === 'Remove') {
             // remove
