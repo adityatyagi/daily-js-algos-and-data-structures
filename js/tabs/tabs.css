@@ -1,0 +1,19 @@
+.tabContent{
+    display: none;
+}
+
+.tabLinks {
+    background-color: black;
+    color: #FFF;
+    padding: 4px 16px;
+}
+.tabLinks.active {
+    background-color: orange;
+}
+.tabLinks:hover{
+    background-color: lightsalmon;
+    cursor: pointer;
+}
+.tabContent.active {
+    display: block;
+}
