@@ -1,4 +1,5 @@
 // node contains reference to the next node and to the previous node - traverse in either directions
+// https://visualgo.net/en/list
 class Node {
     constructor(data) {
         this.data = data;
