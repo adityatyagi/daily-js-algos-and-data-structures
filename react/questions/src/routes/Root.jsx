@@ -1,6 +1,6 @@
 import { Outlet, useNavigation } from 'react-router-dom';
+import { Header, Loader } from '../components';
 import './styles.css';
-import { Loader, Header } from '../components';
 
 const Root = () => {
     const navigate = useNavigation();

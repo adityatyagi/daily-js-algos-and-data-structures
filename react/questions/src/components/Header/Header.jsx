@@ -21,6 +21,9 @@ const Header = () => {
                 <NavLink to="/posts">Posts</NavLink>
                 <NavLink to="/lru">LRU</NavLink>
                 <NavLink to="/auth">Auth</NavLink>
+                <NavLink to="/rendering-patterns">
+                    Rendering Patterns
+                </NavLink>
             </ul>
         </div>
     );

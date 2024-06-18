@@ -23,6 +23,7 @@ import {
 } from './pages';
 import LRUCacheComponent from './pages/LRUCacheComponent.jsx';
 import { postsLoader } from './pages/Posts.jsx';
+import RenderingPatterns from './pages/RenderingPatterns.jsx';
 import { postDetailsLoader } from './pages/postDetailsLoader.js';
 import Root from './routes/Root.jsx';
 
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
                 path: '/posts/:postsId',
                 element: <PostsDetails />,
                 loader: postDetailsLoader,
+            },
+            {
+                path: '/rendering-patterns',
+                element: <RenderingPatterns />,
             },
         ],
     },
