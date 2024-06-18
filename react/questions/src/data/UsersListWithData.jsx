@@ -1,11 +1,14 @@
 import withFetchData from '../hoc/withFetchData';
+import withStyles from '../hoc/withStyles';
 
-function UsersList({ data }) {
+function UsersList({ style, data }) {
     console.log('🚀 ~ UsersList ~ list:', data);
     return (
         <div>
             {data.map((item) => (
-                <p key={item.id}>{item.name}</p>
+                <p style={{ margin: '1rem', ...style }} key={item.id}>
+                    {item.name}
+                </p>
             ))}
         </div>
     );
@@ -13,7 +16,7 @@ function UsersList({ data }) {
 
 const UsersListWithData = withFetchData(
     'https://jsonplaceholder.typicode.com/users',
-    UsersList
+    withStyles(UsersList)
 );
 
 export default UsersListWithData;
