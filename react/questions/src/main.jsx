@@ -5,6 +5,7 @@ import {
     redirect,
     RouterProvider,
 } from 'react-router-dom';
+import FeatureFlagContextProvider from './context/feature-flag-context.jsx';
 import ThemeContextProvider from './context/theme-context.jsx';
 import './index.css';
 import {
@@ -102,7 +103,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <ThemeContextProvider>
-            <RouterProvider router={router} />
+            <FeatureFlagContextProvider>
+                <RouterProvider router={router} />
+            </FeatureFlagContextProvider>
         </ThemeContextProvider>
     </React.StrictMode>
 );

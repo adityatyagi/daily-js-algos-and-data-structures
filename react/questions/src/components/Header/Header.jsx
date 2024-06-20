@@ -1,8 +1,10 @@
 import { NavLink } from 'react-router-dom';
+import { useFeatureFlagContext } from '../../context/feature-flag-context';
 import { useThemeContext } from '../../context/theme-context';
 import './header.css';
 const Header = () => {
     const { theme, toggleTheme } = useThemeContext();
+    const { chatEnabled, toggleChat } = useFeatureFlagContext();
     return (
         <div id="header">
             <div>
@@ -11,6 +13,16 @@ const Header = () => {
                     type="checkbox"
                     onChange={toggleTheme}
                     checked={theme === 'dark'}
+                />
+            </div>
+
+            <div>
+                Chat Enabled: :
+                <input
+                    type="checkbox"
+                    name="chatEnaled"
+                    checked={chatEnabled}
+                    onChange={toggleChat}
                 />
             </div>
 

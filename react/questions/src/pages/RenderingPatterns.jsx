@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useFeatureFlagContext } from '../context/feature-flag-context';
 import PostsListWithData from '../data/PostsListsWithData';
 import UsersListWithData from '../data/UsersListWithData';
 const RenderingPatterns = () => {
+    const { chatEnabled } = useFeatureFlagContext();
+    console.log('🚀 ~ RenderingPatterns ~ chatEnabled:', chatEnabled);
+
     return (
         <div>
             {/* <Users /> */}
             <div>
+                {chatEnabled ? <h4>Chat Enabled</h4> : null}
                 <h3>Posts</h3>
                 <PostsListWithData />
                 <hr />

@@ -27,6 +27,7 @@ var person = {
 };
 
 var person2 = { age: 28 };
+console.log(person.getAge());
 console.log(person.getAge.call(person2)); // 28
 
 // -----------------------
@@ -37,7 +38,6 @@ console.log('***************************');
 var status = 'happy';
 setTimeout(() => {
     const status = 'sad';
-
     const data = {
         status: 'ping',
         getStatus() {
@@ -46,7 +46,7 @@ setTimeout(() => {
     };
 
     console.log(data.getStatus()); // ping
-    console.log(data.getStatus.call(this)); // happy
+    console.log(data.getStatus.call(this)); // happy ----> only in browser
 }, 0);
 
 // -----------------------
@@ -64,6 +64,9 @@ function printAnimals(i) {
         console.log('#' + i + ' ' + this.species + ' ' + this.name);
     };
     this.print();
+}
+for (let [idx] of animals.entries()) {
+    printAnimals.call(animals[idx], ++idx);
 }
 for (let idx in animals) {
     printAnimals.call(animals[idx], ++idx);
@@ -120,11 +123,12 @@ console.log('***************************');
 // -----------------------
 // Call, Bind and Apply in Javascript (Explicit Binding)
 // Question 10 - Bound function
-function f() {
+function k() {
+    // 'use strict'; in strict mode this = null
     console.log(' Question 10 - Bound function', this); // window
 }
 let user = {
-    g: f.bind(null),
+    g: k.bind(null),
 };
 user.g();
 
@@ -202,7 +206,7 @@ const truck = {
     model: 'Test Truck Model',
 };
 
-// console.log(car.getModel.myCall(truck, 9000000));
+console.log(car.getModel.myCall(truck, 9000000));
 
 // pollyfill for .apply
 Function.prototype.myApply = function (context = globalThis, args) {
