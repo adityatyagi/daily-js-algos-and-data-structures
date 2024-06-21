@@ -31,6 +31,14 @@ function App() {
                             Stepper
                         </Link>
                     </li>
+                    <li>
+                        <Link
+                            className="text-blue-900 underline"
+                            to="/switch-case"
+                        >
+                            SwitchCase
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </>

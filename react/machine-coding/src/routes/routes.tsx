@@ -4,6 +4,7 @@ import Accordian from '../pages/Accordian';
 import Carousel from '../pages/Carousel';
 import ErrorPage from '../pages/Error';
 import Stepper from '../pages/Stepper/Stepper';
+import SwitchCase from '../pages/SwitchCase';
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: '/stepper',
                 element: <Stepper />,
+            },
+            {
+                path: '/switch-case',
+                element: <SwitchCase />,
             },
         ],
     },
