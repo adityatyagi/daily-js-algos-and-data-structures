@@ -1,14 +1,16 @@
+import { useMemo, useRef, useState } from 'react';
 import useCounter from '../hooks/useCounter';
-import useWindowSize from '../hooks/useWindowSize';
-import useFetch from '../hooks/useFetch';
 import useDebounce from '../hooks/useDebounce';
 import useDebounceFunc from '../hooks/useDebounceFunc';
-import { useMemo, useRef, useState } from 'react';
-import useThrottle from '../hooks/useThrottle';
-import useLocalStorage from '../hooks/useLocalStorage';
+import useFetch from '../hooks/useFetch';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { usePrevious } from '../hooks/usePrevious';
+import useThrottle from '../hooks/useThrottle';
+import useWindowSize from '../hooks/useWindowSize';
 
 const Hooks = () => {
+    const [currentCount, setCurrentCount] = useState(0);
     const { count, increment, decrement, reset } = useCounter(0, 1);
     const blueBoxRef = useRef(null);
     const { width, height } = useWindowSize();
@@ -19,6 +21,9 @@ const Hooks = () => {
     const [inputText, setInputText] = useState(null);
     const [throttleInputText, setThrottleInputText] = useState(null);
     const debouncedText = useDebounce(inputText, 1000);
+
+    // track the previous value of the count/state
+    const previousCount = usePrevious(currentCount);
 
     function inputChangeHandler(e) {
         const text = e.target.value;
@@ -61,8 +66,17 @@ const Hooks = () => {
         '🚀 ~ Hooks ~ intersectingEntry:',
         intersectingEntry?.isIntersecting
     );
+
     return (
         <div>
+            <div>
+                current: {currentCount}, previous: {previousCount}
+                <button
+                    onClick={() => setCurrentCount(currentCount + 1)}
+                >
+                    Click
+                </button>
+            </div>
             Hooks
             <div>
                 <h2>useCounter</h2>

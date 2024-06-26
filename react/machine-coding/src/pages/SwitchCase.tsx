@@ -29,7 +29,6 @@ const SwitchCaseComponent: React.FC<SwitchCaseComponentProps> = ({
 
     Children.forEach(children, (child) => {
         // iterate over all children
-        console.log(child.type);
         if (isValidElement(child)) {
             if (child.type === CustomCase) {
                 if (typeof child.props.value === 'function') {

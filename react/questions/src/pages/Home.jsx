@@ -6,6 +6,7 @@ import {
     useRef,
     useState,
 } from 'react';
+import Hooks from './Hooks';
 
 const shoppingReducer = (state, action) => {
     switch (action.type) {
@@ -168,6 +169,7 @@ const Home = () => {
             </button>
             <hr />
             <Parent />
+            <Hooks />
         </>
     );
 };
