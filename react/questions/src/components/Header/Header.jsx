@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useFeatureFlagContext } from '../../context/feature-flag-context';
 import { useThemeContext } from '../../context/theme-context';
 import './header.css';
+
 const Header = () => {
     const { theme, toggleTheme } = useThemeContext();
     const { chatEnabled, toggleChat } = useFeatureFlagContext();

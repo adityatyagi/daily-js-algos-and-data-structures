@@ -39,6 +39,14 @@ function App() {
                             SwitchCase
                         </Link>
                     </li>
+                    <li>
+                        <Link
+                            className="text-blue-900 underline"
+                            to="/feature-flag"
+                        >
+                            Feature Flag
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </>

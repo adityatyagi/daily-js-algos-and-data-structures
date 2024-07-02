@@ -5,8 +5,7 @@ import {
     useState,
 } from 'react';
 
-export const FeatureFlagContext = createContext(null);
-
+const FeatureFlagContext = createContext();
 const FeatureFlagContextProvider = ({ children }) => {
     const [featureFlags, setFeatureFlags] = useState({
         chatEnabled: false,

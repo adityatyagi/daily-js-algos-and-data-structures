@@ -3,6 +3,7 @@ import App from '../App';
 import Accordian from '../pages/Accordian';
 import Carousel from '../pages/Carousel';
 import ErrorPage from '../pages/Error';
+import FeatureFlag from '../pages/FeatureFlag/FeatureFlag';
 import Stepper from '../pages/Stepper/Stepper';
 import SwitchCase from '../pages/SwitchCase';
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: '/switch-case',
                 element: <SwitchCase />,
+            },
+            {
+                path: '/feature-flag',
+                element: <FeatureFlag />,
             },
         ],
     },
