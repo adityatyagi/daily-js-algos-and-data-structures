@@ -1,28 +1,24 @@
 import {
     Children,
+    FC,
     isValidElement,
+    PropsWithChildren,
     ReactElement,
-    ReactNode,
 } from 'react';
 
 interface CustomCaseProps {
     value: string | ((value: number) => boolean);
-    children: ReactNode;
 }
 
-interface DefaultCaseProps {
-    children: ReactNode;
-}
+type DeafultCase = PropsWithChildren<object>;
 
 interface SwitchCaseComponentProps {
     value: string;
-    children: ReactNode;
 }
 
-const SwitchCaseComponent: React.FC<SwitchCaseComponentProps> = ({
-    value,
-    children,
-}) => {
+const SwitchCaseComponent: FC<
+    PropsWithChildren<SwitchCaseComponentProps>
+> = ({ value, children }) => {
     // create an array of matching custom cases with the value passed
     const cases: ReactElement[] = [];
     const defaults: ReactElement[] = [];
@@ -49,22 +45,23 @@ const SwitchCaseComponent: React.FC<SwitchCaseComponentProps> = ({
     } else {
         return defaults;
     }
-    return <div>SwitchCaseComponent</div>;
 };
 
-const CustomCase: React.FC<CustomCaseProps> = ({ children }) => {
+const CustomCase: FC<PropsWithChildren<CustomCaseProps>> = ({
+    children,
+}) => {
     return <>{children}</>;
 };
 
-const DefaultCase: React.FC<DefaultCaseProps> = ({ children }) => {
+const DefaultCase: FC<DeafultCase> = ({ children }) => {
     return <>{children}</>;
 };
 const SwitchCase = () => {
     return (
         <div>
-            <SwitchCaseComponent value="99">
+            <SwitchCaseComponent value="20">
                 <CustomCase value={(e: number) => e < 10}>
-                    Case 1
+                    CustomCase Case 1
                 </CustomCase>
                 <CustomCase value="20">Case 20</CustomCase>
                 <CustomCase value="30">Case 30</CustomCase>
