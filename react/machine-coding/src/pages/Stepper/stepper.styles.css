@@ -1,27 +1,10 @@
-.stepsContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-}
-
-.step {
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    background-color: aquamarine;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .stepperProgressLine {
     position: absolute;
     z-index: -1;
     height: 2px;
     background-color: red;
-    transition: all 0.5s ease;
+    will-change: width;
+    transition: width 0.5s ease;
 }
 
 .exampleStepComponent {
@@ -38,4 +21,32 @@
 
 .exampleStepComponent button:hover {
     opacity: 0.8;
+}
+
+.stepperHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+}
+
+.step {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: red;
+    color: black;
+}
+
+.step.active {
+    background-color: green;
+}
+
+.step.active.current {
+    background-color: rgb(4, 78, 4);
+    -webkit-box-shadow: 10px 10px 24px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 24px -8px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 24px -8px rgba(0,0,0,0.75);
 }

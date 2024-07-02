@@ -1,5 +1,9 @@
-import { cloneElement, ReactElement, useState } from 'react';
 import './stepper.styles.css';
+
+import { cloneElement, ReactElement, useState } from 'react';
+
+// making 4 example steps
+
 const ExampleStep1 = ({
     prev,
     next,
@@ -9,12 +13,15 @@ const ExampleStep1 = ({
 }) => {
     return (
         <div className="exampleStepComponent">
-            <h1>Step 1</h1>
-            <button onClick={prev}>Previous</button>
-            <button onClick={next}>Next</button>
+            Step 1{' '}
+            <div>
+                <button onClick={prev}>Prev</button>
+                <button onClick={next}>Next</button>
+            </div>
         </div>
     );
 };
+
 const ExampleStep2 = ({
     prev,
     next,
@@ -24,12 +31,15 @@ const ExampleStep2 = ({
 }) => {
     return (
         <div className="exampleStepComponent">
-            <h1>Step 2</h1>
-            <button onClick={prev}>Previous</button>
-            <button onClick={next}>Next</button>
+            Step 2{' '}
+            <div>
+                <button onClick={prev}>Prev</button>
+                <button onClick={next}>Next</button>
+            </div>
         </div>
     );
 };
+
 const ExampleStep3 = ({
     prev,
     next,
@@ -39,12 +49,15 @@ const ExampleStep3 = ({
 }) => {
     return (
         <div className="exampleStepComponent">
-            <h1>Step 3</h1>
-            <button onClick={prev}>Previous</button>
-            <button onClick={next}>Next</button>
+            Step 3{' '}
+            <div>
+                <button onClick={prev}>Prev</button>
+                <button onClick={next}>Next</button>
+            </div>
         </div>
     );
 };
+
 const ExampleStep4 = ({
     prev,
     next,
@@ -54,13 +67,15 @@ const ExampleStep4 = ({
 }) => {
     return (
         <div className="exampleStepComponent">
-            <h1>Step 4</h1>
-            <button onClick={prev}>Previous</button>
-            <button onClick={next}>Next</button>
+            Step 4
+            <div>
+                <button onClick={prev}>Prev</button>
+                <button onClick={next}>Next</button>
+            </div>
         </div>
     );
 };
-export default function Stepper() {
+const Stepper = () => {
     const list = [
         <ExampleStep1 />,
         <ExampleStep2 />,
@@ -72,26 +87,29 @@ export default function Stepper() {
             <StepperComponent list={list} />
         </div>
     );
-}
+};
 
-function StepperComponent({ list }: { list: ReactElement[] }) {
+const StepperComponent = ({ list }: { list: ReactElement[] }) => {
+    // tracking the current state
     const [currentStep, setCurrentStep] = useState(0);
-    const listLength = list.length;
 
-    // stepper render logic
-    const allSteps = [];
-    for (let i = 0; i < listLength; i++) {
-        allSteps.push(
-            <div
-                className="step"
+    // render all steps dynamically
+    const allStep = [];
+    for (let i = 0; i < list.length; i++) {
+        allStep.push(
+            <button
+                className={`step ${
+                    currentStep >= i ? 'active' : ''
+                }  ${currentStep === i ? 'current' : ''}`}
                 key={i}
                 onClick={() => setCurrentStep(i)}
             >
                 {i + 1}
-            </div>
+            </button>
         );
     }
-    const widthChange = (100 / (listLength - 1)) * currentStep;
+
+    const widthChange = (100 / (list.length - 1)) * currentStep;
     const stepperProgressLine = widthChange;
 
     const prev = () => {
@@ -100,25 +118,30 @@ function StepperComponent({ list }: { list: ReactElement[] }) {
 
     const next = () => {
         setCurrentStep((prevStep) =>
-            Math.min(prevStep + 1, listLength - 1)
+            Math.min(prevStep + 1, list.length - 1)
         );
     };
 
     return (
         <div>
-            <div className="stepsContainer">
-                {allSteps}
+            {/* stepper header with steps */}
+            <div className="stepperHeader">
+                {allStep}
+
                 <div
                     className="stepperProgressLine"
-                    style={{ width: `${stepperProgressLine}%` }}
+                    style={{
+                        width: `${stepperProgressLine}%`,
+                    }}
                 ></div>
             </div>
-            <div className="stepsComponentContainer">
-                {cloneElement(list[currentStep], {
-                    prev,
-                    next,
-                })}
-            </div>
+            {/* render step component based on current step */}
+            {cloneElement(list[currentStep], {
+                prev,
+                next,
+            })}
         </div>
     );
-}
+};
+
+export default Stepper;
