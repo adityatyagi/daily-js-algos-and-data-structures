@@ -4,6 +4,7 @@ import Accordian from '../pages/Accordian';
 import Carousel from '../pages/Carousel';
 import ErrorPage from '../pages/Error';
 import FeatureFlag from '../pages/FeatureFlag/FeatureFlag';
+import InfiniteScroll from '../pages/InfiniteScroll';
 import Stepper from '../pages/Stepper/Stepper';
 import SwitchCase from '../pages/SwitchCase';
 
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: '/feature-flag',
                 element: <FeatureFlag />,
+            },
+            {
+                path: '/infinite-scroll',
+                element: <InfiniteScroll />,
             },
         ],
     },

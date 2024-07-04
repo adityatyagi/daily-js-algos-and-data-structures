@@ -47,6 +47,14 @@ function App() {
                             Feature Flag
                         </Link>
                     </li>
+                    <li>
+                        <Link
+                            className="text-blue-900 underline"
+                            to="/infinite-scroll"
+                        >
+                            Infinite Scroll
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </>
