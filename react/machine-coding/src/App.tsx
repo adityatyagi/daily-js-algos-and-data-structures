@@ -55,6 +55,14 @@ function App() {
                             Infinite Scroll
                         </Link>
                     </li>
+                    <li>
+                        <Link
+                            className="text-blue-900 underline"
+                            to="/two-stepper-form"
+                        >
+                            Two Stepper Form
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </>

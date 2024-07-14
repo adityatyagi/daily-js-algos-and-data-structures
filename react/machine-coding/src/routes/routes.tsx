@@ -7,6 +7,7 @@ import FeatureFlag from '../pages/FeatureFlag/FeatureFlag';
 import InfiniteScroll from '../pages/InfiniteScroll';
 import Stepper from '../pages/Stepper/Stepper';
 import SwitchCase from '../pages/SwitchCase';
+import TwoStepperLoginForm from '../pages/TwoStepperLoginForm';
 
 // const SwitchCaseLazy = lazy(() => import('../pages/SwitchCase'));
 // const AppLazy = lazy(() => import('../App'));
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
             {
                 path: '/infinite-scroll',
                 element: <InfiniteScroll />,
+            },
+            {
+                path: '/two-stepper-form',
+                element: <TwoStepperLoginForm />,
             },
         ],
     },
